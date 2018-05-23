@@ -5,6 +5,7 @@
 // and keeps track of the values that occupy all of its spaces.
 class Arrangement {
 public:
+  Arrangement();
   Arrangement(size_t size);
   void defineAdjacency(size_t a, size_t b);
   void display();
@@ -15,6 +16,3 @@ private:
   std::vector<value> _spaces;
   std::unordered_map<size_t, size_t> _adjacency;
 };
-
-// Helper functions to create standard arrangements
-Arrangement create1DArrangement(size_t length);

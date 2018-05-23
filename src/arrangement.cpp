@@ -1,8 +1,10 @@
 #include "arrangement.h"
 
+Arrangement::Arrangement() {}
+
 Arrangement::Arrangement(size_t size) : _size(size) {
-  for (size_t i = 1; i < _size+1; ++i) {
-    _spaces.push_back(i);
+  for (size_t i = 0; i < _size; ++i) {
+    _spaces.push_back((value)i);
   }
 }
 
@@ -21,24 +23,13 @@ void Arrangement::display() {
 }
 
 bool Arrangement::swap(size_t i, size_t j) {
-  std::cout << "2\n";
   if (i > _size || j > _size
     || _adjacency.count(i) == 0 || _adjacency.count(j) == 0
     || _adjacency[i] != j) {
-      std::cout << "3\n";
     return false;
   }
-  std::cout << "4\n";
   value temp = _spaces[i];
   _spaces[i] = _spaces[j];
   _spaces[j] = temp;
   return true;
-}
-
-Arrangement create1DArrangement(size_t length) {
-  Arrangement arr = Arrangement(length);
-  for (size_t i = 0; i < length-1; ++i) {
-    arr.defineAdjacency(i, i+1);
-  }
-  return arr;
 }

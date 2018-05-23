@@ -9,10 +9,13 @@
 class Swap {
 public:
   Swap(size_t i, size_t j, std::string& name);
-  void displayInfo();
-  Arrangement operator *(Arrangement rhs);
+  void displayInfo() const;
+  std::pair<size_t, size_t> getIndices() const;
+  Arrangement operator *(const Arrangement& rhs) const;
 
 private:
   size_t _i, _j;
   std::string _name;
 };
+
+Arrangement operator *(const Arrangement& lhs, const Swap& rhs);

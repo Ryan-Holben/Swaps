@@ -10,6 +10,7 @@ BINARY=swaps
 OBJECTS=$(patsubst %.o,$(OBJDIR)/%.o,\
 					main.o \
 					arrangement.o \
+					helpers.o \
 					swap.o)
 
 all: $(BINARY)

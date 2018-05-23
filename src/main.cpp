@@ -1,20 +1,21 @@
 #include <iostream>
-#include "arrangement.h"
-#include "swap.h"
+
+#include "helpers.h"
 
 
 using namespace std;
 
 int main() {
-  // Arrangement arr(5);
-  // arr.define_adjacency(1, 2);
-  // arr.display();
-  Arrangement arr = create1DArrangement(6);
+  // Create the containers for our data
+  Arrangement arr;
+  std::vector<Swap> swaps;
+
+  // Fill those containers with a 1D array to do permutations on
+  create1DArrangement(6, &arr, &swaps);
   arr.display();
-  std::string name = "a";
-  Swap s(1, 2, name);
-  s.displayInfo();
-  (s*arr).display();
+  for (const auto & swap : swaps) {
+    swap.displayInfo();
+  }
 
   return 0;
 }
