@@ -1,8 +1,8 @@
 #include "helpers.h"
 
 // Helper functions to create standard arrangements
-bool create1DArrangement(size_t length, Arrangement* arr, std::vector<Swap>* swaps) {
-  if (arr == nullptr || swaps == nullptr) {
+bool create1DArrangement(size_t length, Arrangement* arr, std::vector<std::shared_ptr<Swap>>& swaps) {
+  if (arr == nullptr) {
     return false;
   }
 
@@ -12,7 +12,7 @@ bool create1DArrangement(size_t length, Arrangement* arr, std::vector<Swap>* swa
   for (size_t i = 0; i < length-1; ++i) {
     arr->defineAdjacency(i, i+1);
     strName = name;
-    swaps->emplace_back(i, i+1, strName);
+    swaps.emplace_back(std::make_shared<Swap>(i, i+1, strName));
     name += 1;
   }
   return true;
