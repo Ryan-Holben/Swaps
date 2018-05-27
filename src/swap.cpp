@@ -7,6 +7,10 @@ void Swap::displayInfo() const {
   std::cout << "\""<< _name << "\" is a swap object that acts on the positions " << _i << " & " << _j << ".\n";
 }
 
+std::string Swap::getName() const {
+  return _name;
+}
+
 std::pair<size_t, size_t> Swap::getIndices() const {
   return std::make_pair(_i, _j);
 }
@@ -24,4 +28,11 @@ Arrangement operator *(const Arrangement& lhs, const Swap& rhs) {
   auto indices = rhs.getIndices();
   ret.swap(indices.first, indices.second);
   return ret;
+}
+
+// Multiply the swap on the LEFT by the arrangement, store the result in that
+// arrangement
+void operator *=(Arrangement& lhs, const Swap& rhs) {
+  auto indices = rhs.getIndices();
+  lhs.swap(indices.first, indices.second);
 }

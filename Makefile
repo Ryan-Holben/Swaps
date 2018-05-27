@@ -11,7 +11,8 @@ OBJECTS=$(patsubst %.o,$(OBJDIR)/%.o,\
 					main.o \
 					arrangement.o \
 					helpers.o \
-					swap.o)
+					swap.o \
+					word.o)
 
 all: $(BINARY)
 
