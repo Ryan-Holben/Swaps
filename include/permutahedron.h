@@ -6,18 +6,23 @@
 
 
 // A class encapsulating a single node in the Permutahedron graph
-// class Node {
-// public:
-//   Node();
-//
-// // private:
-//   Arrangement _arr;
-//   Word _word;
-//   std::vector<Node*> _pred, _succ;
-// };
-//
-// using level = std::vector<Node>;
-using level = std::vector<Arrangement>;
+class Node {
+public:
+  Node();
+  Node(const Arrangement& arr, const Word& word);
+  std::vector<std::shared_ptr<Swap>> getSuccessorSwaps(const std::vector<std::shared_ptr<Swap>>& swaps) const;
+  Arrangement& getArrangement();
+  Word& getWord();
+  friend bool connectNodes(std::shared_ptr<Node>& pred, std::shared_ptr<Node>& succ);
+
+// private:
+  Arrangement _arr;
+  Word _word;
+  std::vector<std::shared_ptr<Node>> _pred, _succ;
+};
+
+using level = std::vector<Node>;
+// using level = std::vector<Arrangement>;
 
 class Permutahedron {
 public:

@@ -12,6 +12,9 @@ void Word::append(const std::vector<Swap>& swaps) {
   }
 }
 std::string Word::getString() const {
+  if (_swaps.size() == 0) {
+    return "1";
+  }
   std::string ret;
   for (const auto & swap : _swaps) {
     ret += swap->getName();
