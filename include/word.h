@@ -12,6 +12,7 @@ public:
   void append(std::vector<Swap>& swaps);
   std::string getString() const;
   Arrangement apply(Arrangement& lhs) const;
+  friend bool getEdge(const Word& pred, const Word& succ, Swap* swap);
 
 private:
   std::vector<Swap> _swaps;

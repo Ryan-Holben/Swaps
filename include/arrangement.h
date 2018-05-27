@@ -8,8 +8,11 @@ public:
   Arrangement();
   Arrangement(size_t size);
   void defineAdjacency(size_t a, size_t b);
-  void display();
+  std::string getString(std::string delim = "") const;
   bool swap(size_t i, size_t j);
+  void operator =(const Arrangement& rhs);
+  void reverse();
+  Arrangement getReverse();
 
 private:
   size_t _size;

@@ -1,5 +1,7 @@
 #include "swap.h"
 
+Swap::Swap() {}
+
 Swap::Swap(size_t i, size_t j, std::string& name)
     : _i(i), _j(j), _name(name) {}
 
@@ -20,6 +22,14 @@ Arrangement Swap::operator *(const Arrangement& rhs) const {
   Arrangement ret = rhs;
   ret.swap(_i, _j);
   return ret;
+}
+
+bool Swap::operator ==(const Swap& rhs) const {
+  return (_i == rhs._i && _j == rhs._j);
+}
+
+bool Swap::operator !=(const Swap& rhs) const {
+  return !(*this == rhs);
 }
 
 // Multiply the swap on the LEFT by the arrangement, return an arrangement

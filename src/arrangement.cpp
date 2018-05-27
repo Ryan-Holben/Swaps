@@ -14,12 +14,15 @@ void Arrangement::defineAdjacency(size_t a, size_t b) {
   _adjacency[b] = a;
 }
 
-void Arrangement::display() {
-  std::cout << "[";
+std::string Arrangement::getString(std::string delim) const {
+  std::string ret = "[";
   for (size_t i = 0; i < _size-1; ++i) {
-    std::cout << _spaces[i] << ", ";
+    ret +=  std::to_string(_spaces[i]);
+    ret += delim;
   }
-  std::cout << _spaces[_size-1] << "]\n";
+  ret += std::to_string(_spaces[_size-1]);
+  ret += "]";
+  return ret;
 }
 
 bool Arrangement::swap(size_t i, size_t j) {
@@ -32,4 +35,20 @@ bool Arrangement::swap(size_t i, size_t j) {
   _spaces[i] = _spaces[j];
   _spaces[j] = temp;
   return true;
+}
+
+void Arrangement::operator =(const Arrangement& rhs) {
+  _size = rhs._size;
+  _spaces = rhs._spaces;
+  _adjacency = rhs._adjacency;
+}
+
+void Arrangement::reverse() {
+  std::reverse(_spaces.begin(), _spaces.end());
+}
+
+Arrangement Arrangement::getReverse() {
+  Arrangement arr = *this;
+  arr.reverse();
+  return arr;
 }

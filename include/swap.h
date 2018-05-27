@@ -8,16 +8,19 @@
 // letter-based name for itself for display purposes.
 class Swap {
 public:
+  Swap();
   Swap(size_t i, size_t j, std::string& name);
   void displayInfo() const;
   std::string getName() const;
   std::pair<size_t, size_t> getIndices() const;
   Arrangement operator *(const Arrangement& rhs) const;
+  bool operator ==(const Swap& rhs) const;
+  bool operator !=(const Swap& rhs) const;
 
 private:
   size_t _i, _j;
   std::string _name;
 };
 
-Arrangement operator *(Arrangement& lhs, const Swap& rhs);
+Arrangement operator *(const Arrangement& lhs, const Swap& rhs);
 void operator *=(Arrangement& lhs, const Swap& rhs);
