@@ -2,14 +2,12 @@
 
 Word::Word() {}
 
-void Word::append(const Swap& swap) {
-  _swaps.push_back(std::make_shared<Swap>(swap));
+void Word::append(const std::shared_ptr<Swap> swap) {
+  _swaps.push_back(swap);
 }
 
-void Word::append(const std::vector<Swap>& swaps) {
-  for (const auto & swap : swaps) {
-    _swaps.push_back(std::make_shared<Swap>(swap));
-  }
+void Word::append(const std::vector<std::shared_ptr<Swap>>& swaps) {
+  _swaps.insert(_swaps.end(), swaps.begin(), swaps.end());
 }
 std::string Word::getString() const {
   if (_swaps.size() == 0) {
