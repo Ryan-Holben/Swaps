@@ -43,6 +43,26 @@ void Arrangement::operator =(const Arrangement& rhs) {
   _adjacency = rhs._adjacency;
 }
 
+bool Arrangement::operator ==(const Arrangement& rhs) {
+  if (_size != rhs._size) {
+    return false;
+  }
+
+  for (size_t i = 0; i < _size; ++i) {
+    if (_spaces[i] != rhs._spaces[i]) {
+      return false;
+    }
+  }
+
+  for (const auto & val : _adjacency) {
+    if (rhs._adjacency.count(val.first) == 0 || rhs._adjacency.at(val.first) != val.second) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 void Arrangement::reverse() {
   std::reverse(_spaces.begin(), _spaces.end());
 }

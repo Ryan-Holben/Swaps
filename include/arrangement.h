@@ -11,6 +11,7 @@ public:
   std::string getString(std::string delim = "") const;
   bool swap(size_t i, size_t j);
   void operator =(const Arrangement& rhs);
+  bool operator ==(const Arrangement& rhs);
   void reverse();
   Arrangement getReverse();
 
