@@ -6,17 +6,18 @@
 
 
 // A class encapsulating a single node in the Permutahedron graph
-class Node {
-public:
-  Node();
-
-// private:
-  Arrangement _arr;
-  Word _word;
-  std::vector<Node*> _pred, _succ;
-};
-
-using level = std::vector<Node>;
+// class Node {
+// public:
+//   Node();
+//
+// // private:
+//   Arrangement _arr;
+//   Word _word;
+//   std::vector<Node*> _pred, _succ;
+// };
+//
+// using level = std::vector<Node>;
+using level = std::vector<Arrangement>;
 
 class Permutahedron {
 public:

@@ -2,31 +2,32 @@
 
 Word::Word() {}
 
-void Word::append(Swap& swap) {
-  _swaps.push_back(swap);
+void Word::append(const Swap& swap) {
+  _swaps.push_back(std::make_shared<Swap>(swap));
 }
 
-void Word::append(std::vector<Swap>& swaps) {
-  _swaps.insert(_swaps.end(), swaps.begin(), swaps.end());
+void Word::append(const std::vector<Swap>& swaps) {
+  for (const auto & swap : swaps) {
+    _swaps.push_back(std::make_shared<Swap>(swap));
+  }
 }
 std::string Word::getString() const {
   std::string ret;
   for (const auto & swap : _swaps) {
-    ret += swap.getName();
+    ret += swap->getName();
   }
   return ret;
 }
 
-Arrangement Word::apply(Arrangement& lhs) const {
+Arrangement Word::apply(const Arrangement& lhs) const {
   Arrangement arr = lhs;
   for (const auto & swap : _swaps) {
-    // arr = arr*swap;
-    arr *= swap;
+    arr *= *swap;
   }
   return arr;
 }
 
-Arrangement operator *(Arrangement & lhs, Word & rhs) {
+Arrangement operator *(Arrangement & lhs, const Word & rhs) {
   return rhs.apply(lhs);
 }
 
@@ -37,17 +38,15 @@ bool getEdge(const Word& pred, const Word& succ, Swap* swap) {
   if (swap == nullptr) {
     return false;
   }
-
   if (pred._swaps.size() + 1 != succ._swaps.size()) {
     return false;
   }
-
   for (size_t i = 0; i < pred._swaps.size(); ++i) {
     if (pred._swaps[i] != succ._swaps[i]) {
       return false;
     }
   }
 
-  *swap = succ._swaps.back();
+  swap = succ._swaps.back().get();
   return true;
 }

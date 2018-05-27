@@ -1,6 +1,6 @@
 #include "permutahedron.h"
 
-Node::Node() {}
+// Node::Node() {}
 
 Permutahedron::Permutahedron() {}
 
