@@ -8,9 +8,10 @@ OBJDIR=obj
 
 BINARY=swaps
 OBJECTS=$(patsubst %.o,$(OBJDIR)/%.o,\
-					main.o \
 					arrangement.o \
 					helpers.o \
+					main.o \
+					permutahedron.o \
 					swap.o \
 					word.o)
 

@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "helpers.h"
+#include "permutahedron.h"
 
 using namespace std;
 
