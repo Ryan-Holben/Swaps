@@ -12,7 +12,8 @@ public:
   void append(const std::vector<std::shared_ptr<Swap>>& swaps);
   std::string getString() const;
   Arrangement apply(const Arrangement& lhs) const;
-  friend bool getEdge(const Word& pred, const Word& succ, Swap* swap);
+  friend bool getEdge(const Word& pred, const Word& succ, std::shared_ptr<Swap> swap);
+  void operator =(const Word& rhs);
 
 private:
   std::vector<std::shared_ptr<Swap>> _swaps;

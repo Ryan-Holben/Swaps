@@ -18,15 +18,18 @@ OBJECTS=$(patsubst %.o,$(OBJDIR)/%.o,\
 all: $(BINARY)
 
 # Reassign OBJECTS to include the object path
-CXXFLAGS+=-I$(INCDIR) -Wall -g -O3 --std=c++11
+CXXFLAGS+=-I$(INCDIR) -Wall -g -O3 --std=c++14
 
-$(BINARY) : $(OBJECTS) $(RGB_LIBRARY)
+$(BINARY) : $(OBJECTS)
 	@mkdir -p $(BINDIR)
 	$(CXX) $(CXXFLAGS) -o $(BINDIR)/$@ $^ $(LDFLAGS)
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 	@mkdir -p $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+writeline:
+	echo "########################################################"
 
 clean:
 	rm -f $(BINDIR)/* $(OBJDIR)/*
