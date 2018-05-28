@@ -6,14 +6,14 @@ Node::Node() {}
 Node::Node(const Arrangement& arr, const Word& word) : _arr(arr), _word(word) {}
 
 // Return all swaps that got us to this Node
-std::vector<std::shared_ptr<Swap>> Node::getPredecessorSwaps() const {
+std::vector<swapPtr> Node::getPredecessorSwaps() const {
   std::cout << "TEST 1: _pred.size() = " << _pred.size() << "\n";
   for (const auto & predNode : _pred) {
     std::cout << "predNode->_arr = " << predNode->_arr.getString() << "\n";
   }
-  std::vector<std::shared_ptr<Swap>> ret;
+  std::vector<swapPtr> ret;
 
-  std::shared_ptr<Swap> tempSwap;
+  swapPtr tempSwap;
   std::vector<Swap> prevSwaps;
   std::cout << "- Predecessor swaps: \n";
   // std::cout << _word.getString() << "\n";
@@ -28,11 +28,11 @@ std::vector<std::shared_ptr<Swap>> Node::getPredecessorSwaps() const {
 }
 
 // Return all swaps that aren't predecessors of this Node
-std::vector<std::shared_ptr<Swap>> Node::getSuccessorSwaps(const std::vector<std::shared_ptr<Swap>>& swaps) const {
-  std::vector<std::shared_ptr<Swap>> ret;
+std::vector<swapPtr> Node::getSuccessorSwaps(const std::vector<swapPtr>& swaps) const {
+  std::vector<swapPtr> ret;
 
   std::cout << "Getting successors of Node containing " << _arr.getString() << "\n";
-  std::vector<std::shared_ptr<Swap>> prevSwaps = getPredecessorSwaps();
+  std::vector<swapPtr> prevSwaps = getPredecessorSwaps();
   std::cout << " - prevSwaps.size() = " << prevSwaps.size() << "\n";
 
   // Build & return a list of all Swaps *not* in prevSwaps
@@ -68,7 +68,7 @@ bool connectNodes(Node& pred, Node& succ) {
 // --------- Permutahedron method definitions ---------
 Permutahedron::Permutahedron() {}
 
-void Permutahedron::buildPermutahedron(std::vector<std::shared_ptr<Swap>>& swaps, Arrangement& start, Arrangement& end) {
+void Permutahedron::buildPermutahedron(std::vector<swapPtr>& swaps, Arrangement& start, Arrangement& end) {
   // Seed the permutahedron
   Word startWord;
   Node startNode(start, startWord);

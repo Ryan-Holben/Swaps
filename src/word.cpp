@@ -2,11 +2,11 @@
 
 Word::Word() {}
 
-void Word::append(const std::shared_ptr<Swap> swap) {
+void Word::append(const swapPtr swap) {
   _swaps.push_back(swap);
 }
 
-void Word::append(const std::vector<std::shared_ptr<Swap>>& swaps) {
+void Word::append(const std::vector<swapPtr>& swaps) {
   _swaps.insert(_swaps.end(), swaps.begin(), swaps.end());
 }
 std::string Word::getString() const {
@@ -39,7 +39,7 @@ Arrangement operator *(Arrangement & lhs, const Word & rhs) {
 
 // Get the Swap s such that succ = pred * s.  That is, get the edge connecting
 // two Arrangement "nodes" in a permutahedron.
-bool getEdge(const Word& pred, const Word& succ, std::shared_ptr<Swap> swap) {
+bool getEdge(const Word& pred, const Word& succ, swapPtr swap) {
   // if (swap == nullptr) {
   //   return false;
   // }

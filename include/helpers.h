@@ -6,4 +6,4 @@
 #include <vector>
 
 // Helper functions to create standard arrangements
-bool create1DArrangement(size_t length, Arrangement* arr, std::vector<std::shared_ptr<Swap>>& swaps);
+bool create1DArrangement(size_t length, Arrangement* arr, std::vector<swapPtr>& swaps);

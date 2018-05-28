@@ -6,7 +6,7 @@
 int main() {
   // Create the containers for our data
   Arrangement start, end;
-  std::vector<std::shared_ptr<Swap>> swaps;
+  std::vector<swapPtr> swaps;
 
   // Fill those containers with a 1D array to do permutations on
   create1DArrangement(6, &start, swaps);

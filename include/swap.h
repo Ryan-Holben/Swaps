@@ -24,3 +24,5 @@ private:
 
 Arrangement operator *(const Arrangement& lhs, const Swap& rhs);
 void operator *=(Arrangement& lhs, const Swap& rhs);
+
+using swapPtr = std::shared_ptr<Swap>;

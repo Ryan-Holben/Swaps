@@ -8,15 +8,15 @@
 class Word {
 public:
   Word();
-  void append(const std::shared_ptr<Swap> swap);
-  void append(const std::vector<std::shared_ptr<Swap>>& swaps);
+  void append(const swapPtr swap);
+  void append(const std::vector<swapPtr>& swaps);
   std::string getString() const;
   Arrangement apply(const Arrangement& lhs) const;
-  friend bool getEdge(const Word& pred, const Word& succ, std::shared_ptr<Swap> swap);
+  friend bool getEdge(const Word& pred, const Word& succ, swapPtr swap);
   void operator =(const Word& rhs);
 
 private:
-  std::vector<std::shared_ptr<Swap>> _swaps;
+  std::vector<swapPtr> _swaps;
 };
 
 Arrangement operator *(Arrangement & lhs, const Word & rhs);
