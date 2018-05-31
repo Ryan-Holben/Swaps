@@ -3,40 +3,32 @@
 // --------- Node method definitions ---------
 Node::Node() {}
 
-Node::Node(const Arrangement& arr, const Word& word) : _arr(arr), _word(word) {}
+Node::Node(const Arrangement& arr) : _arr(arr) {}
 
-// Return all swaps that got us to this Node
+Arrangement Node::getArrangement() const { return _arr; }
+
 std::vector<swapPtr> Node::getPredecessorSwaps() const {
-  std::cout << "TEST 1: _pred.size() = " << _pred.size() << "\n";
-  for (const auto & predNode : _pred) {
-    std::cout << "predNode->_arr = " << predNode->_arr.getString() << "\n";
-  }
   std::vector<swapPtr> ret;
-
-  swapPtr tempSwap;
-  std::vector<Swap> prevSwaps;
-  std::cout << "- Predecessor swaps: \n";
-  // std::cout << _word.getString() << "\n";
-  // std::cout << _pred[0]->_word.getString() << "\n";
-  for (const auto & node : _pred) {
-    getEdge(node->_word, _word, tempSwap);
-    std::cout << tempSwap->getName() << " ";
-    ret.push_back(tempSwap);
+  for (const auto& predNode : _pred) {
+    ret.push_back(predNode->_swap);
   }
-  std::cout << "\n";
   return ret;
 }
 
-// Return all swaps that aren't predecessors of this Node
-std::vector<swapPtr> Node::getSuccessorSwaps(const std::vector<swapPtr>& swaps) const {
+std::vector<swapPtr> Node::getSuccessorSwaps() const {
   std::vector<swapPtr> ret;
+  for (const auto& succNode : _succ) {
+    ret.push_back(succNode->_swap);
+  }
+  return ret;
+}
 
-  std::cout << "Getting successors of Node containing " << _arr.getString() << "\n";
-  std::vector<swapPtr> prevSwaps = getPredecessorSwaps();
-  std::cout << " - prevSwaps.size() = " << prevSwaps.size() << "\n";
-
-  // Build & return a list of all Swaps *not* in prevSwaps
-  for (const auto & swap : swaps) {
+// Given the predecessor nodes that this Node currently stores, return a list
+// of all swaps that remain (and thus are viable candidates for successors).
+std::vector<swapPtr> Node::computeSuccessorSwaps(const std::vector<swapPtr>& swaps) const {
+  std::vector<swapPtr> ret;
+  auto prevSwaps = getPredecessorSwaps();
+  for (const auto& swap : swaps) {
     if (std::find(prevSwaps.begin(), prevSwaps.end(), swap) == prevSwaps.end()) {
       ret.push_back(swap);
     }
@@ -44,92 +36,101 @@ std::vector<swapPtr> Node::getSuccessorSwaps(const std::vector<swapPtr>& swaps) 
   return ret;
 }
 
-Arrangement Node::getArrangement() const { return _arr; }
-
-Word Node::getWord() const { return _word; }
-
 // Helpful friend function to properly connect pred to succ
-bool connectNodes(Node& pred, Node& succ) {
-  std::cout << "CALLED ";
-  std::shared_ptr<Node> predPtr = std::make_shared<Node>(pred);
-  std::shared_ptr<Node> succPtr = std::make_shared<Node>(succ);
+bool connectNodes(Node& pred, Node& succ, swapPtr swap) {
+  // std::cout << "CALLED ";
+  nodePtr predPtr = std::make_shared<Node>(pred);
+  nodePtr succPtr = std::make_shared<Node>(succ);
 
-  if (std::find(pred._succ.begin(), pred._succ.end(), succPtr) != pred._succ.end() ||
-      std::find(succ._pred.begin(), succ._pred.end(), predPtr) != succ._pred.end()) {
-        return false;
+  // Check if we're already connected
+  for (const auto& edge : pred._succ) {
+    if (edge->_succ == succPtr) {
+      return false;
+    }
+  }
+  for (const auto& edge : succ._pred) {
+    if (edge->_pred == predPtr) {
+      return false;
+    }
   }
 
-  pred._succ.push_back(succPtr);
-  succ._pred.push_back(predPtr);
-  std::cout << "(" << pred._pred.size() << ", " << succ._succ.size() << ")\n";
+  edgePtr edge = std::make_shared<Edge>(swap, predPtr, succPtr);
+
+  pred._succ.push_back(edge);
+  succ._pred.push_back(edge);
+  // std::cout << "(" << pred._pred.size() << ", " << succ._succ.size() << ")\n";
   return true;
 }
 
 // --------- Permutahedron method definitions ---------
 Permutahedron::Permutahedron() {}
 
-void Permutahedron::buildPermutahedron(std::vector<swapPtr>& swaps, Arrangement& start, Arrangement& end) {
+void Permutahedron::buildPermutahedron(std::vector<swapPtr>& swaps, Arrangement& start) {
   // Seed the permutahedron
-  Word startWord;
-  Node startNode(start, startWord);
+  cout << "Building permutahedron\n";
+  cout << "Seeding level 0\n";
+  Node startNode(start);
   _levels.push_back({startNode});
 
-  // Loop through all the levels that we want to create
-  for (size_t i = 1; i < 3; ++i) {
+  // Loop through all the additional levels that we want to create
+  size_t i = 1;
+  // for (size_t i = 1; i < 6; ++i){
+  while (_levels[i-1].size() != 1 || i == 1) {
+    cout << "Building level " << i << "\n";
     _levels.push_back({});
     auto& prevLevel = _levels[i-1];
     auto& currLevel = _levels[i];
-    std::cout << "\nOn level " << i << "\n";
 
+    // For each Arrangement/Node on the previous level...
     for (auto& prevNode : prevLevel) {
-      // For each arrangement (Node) on the previous level....
-      std::cout << "- Looking at node w/ arrangement " << prevNode.getArrangement().getString() << "\n";
-
-      for (const auto& swap : prevNode.getSuccessorSwaps(swaps)) {
-        // ...try multiplying it by an appropriate swap
+      // Loop through that node's potential next swaps.
+      // cout << "- Looking at a prevNode.  It has " << prevNode.computeSuccessorSwaps(swaps).size() << " possible swaps we can try.\n";
+      // cout << "-- ";
+      for (const auto& swap : prevNode.computeSuccessorSwaps(swaps)) {
+        // For each such swap, try multiplying by prevNode.
         Arrangement newArr = prevNode.getArrangement() * (*swap);
 
         // Is the result new?
-        bool found = false;
-        for (auto& otherNode : currLevel) {
-          if (otherNode.getArrangement() == newArr) {
-            // If it's not new, connect to the pre-existing node
-            connectNodes(prevNode, otherNode);
-            found = true;
+        bool foundNode = false;
+        for (auto & currNode : currLevel) {
+          // Not a new result?  Connect to the already existing Node
+          if (newArr == currNode.getArrangement()) {
+            // cout << "old ";
+            connectNodes(prevNode, currNode, swap);
+            foundNode = true;
             break;
           }
         }
-
-        std::cout << "-- Multiplying by swap: " << swap->getName() << "\t Result: " << newArr.getString() << " --> " << (found ? "old" : "new") << "\n";
-
-        if (!found) {
-          // If it is new, create a new node and connect to it
-          Word newWord = prevNode.getWord();
-          newWord.append(swap);
-          Node newNode(newArr, newWord);
-          connectNodes(prevNode, newNode);
-          currLevel.emplace_back(newNode);
+        if (!foundNode) {
+          // Yes, is a new result?  Build a new Node and connect to it
+          // cout << "new ";
+          Node newNode(newArr);
+          connectNodes(prevNode, newNode, swap);
+          currLevel.push_back(newNode); // And also add it to the Permutahedron
         }
-
       }
+      // cout << "\n";
     }
+    i += 1;
   }
 }
+
 void Permutahedron::display() const {
+  if (_levels.size() == 0) {
+    return;
+  }
   std::cout << "_levels.size() = " << _levels.size() << "\n";
   for (size_t i = 0; i < _levels.size(); ++i) {
     std::cout << "_levels[" << i << "].size() = " << _levels[i].size() << "\n";
   }
 
-  for (const auto & node : _levels[0]) {
-    std::cout << "(" << node._pred.size() << ", " << node._succ.size() << ") ";
-  }
-  std::cout << "\n";
+  // for (size_t i = 0; i < _levels.size(); ++i) {
+  //   for (const auto & node : _levels[i]) {
+  //     std::cout << "(" << node._pred.size() << ", " << node._succ.size() << ") ";
+  //   }
+  //   cout << "\n";
+  // }
 
-  for (const auto & node : _levels[1]) {
-    std::cout << "(" << node._pred.size() << ", " << node._succ.size() << ") ";
-  }
-  std::cout << "\n";
   // std::cout << "\n";
   // for (size_t i = 0; i < _levels.size(); ++i) {
   //   const auto& level = _levels[i];
