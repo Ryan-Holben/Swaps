@@ -12,7 +12,6 @@ public:
   void append(const std::vector<swapPtr>& swaps);
   std::string getString() const;
   Arrangement apply(const Arrangement& lhs) const;
-  friend bool getEdge(const Word& pred, const Word& succ, swapPtr swap);
   void operator =(const Word& rhs);
 
 private:
