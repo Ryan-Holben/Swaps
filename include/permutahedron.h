@@ -42,6 +42,8 @@ public:
   Permutahedron();
   void buildPermutahedron(std::vector<swapPtr>& swaps, Arrangement& start);
   void display() const;
+  nodePtr front() const;
+  nodePtr back() const;
 
 private:
   std::vector<level> _levels;

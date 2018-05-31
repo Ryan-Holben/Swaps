@@ -10,7 +10,7 @@ int main() {
   std::vector<swapPtr> swaps;
 
   // Fill those containers with a 1D array to do permutations on
-  create1DArrangement(7, &start, swaps);
+  create1DArrangement(5, &start, swaps);
 
   // Initialize & build a permutahedron
   Permutahedron perm = Permutahedron();
@@ -18,6 +18,9 @@ int main() {
 
   // Display the results
   perm.display();
+
+  cout << perm.front()->getArrangement().getString() << "\n";
+  cout << perm.back()->getArrangement().getString() << "\n";
 
   return 0;
 }

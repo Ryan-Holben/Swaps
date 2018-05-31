@@ -7,6 +7,7 @@ Node::Node(const Arrangement& arr) : _arr(arr) {}
 
 Arrangement Node::getArrangement() const { return _arr; }
 
+// Build & return a list of all predecessor swaps
 std::vector<swapPtr> Node::getPredecessorSwaps() const {
   std::vector<swapPtr> ret;
   for (const auto& predNode : _pred) {
@@ -15,6 +16,7 @@ std::vector<swapPtr> Node::getPredecessorSwaps() const {
   return ret;
 }
 
+// Build & return a list of all successor swaps
 std::vector<swapPtr> Node::getSuccessorSwaps() const {
   std::vector<swapPtr> ret;
   for (const auto& succNode : _succ) {
@@ -38,7 +40,6 @@ std::vector<swapPtr> Node::computeSuccessorSwaps(const std::vector<swapPtr>& swa
 
 // Helpful friend function to properly connect pred to succ
 bool connectNodes(Node& pred, Node& succ, swapPtr swap) {
-  // std::cout << "CALLED ";
   nodePtr predPtr = std::make_shared<Node>(pred);
   nodePtr succPtr = std::make_shared<Node>(succ);
 
@@ -54,11 +55,10 @@ bool connectNodes(Node& pred, Node& succ, swapPtr swap) {
     }
   }
 
+  // Build a new connection and register it
   edgePtr edge = std::make_shared<Edge>(swap, predPtr, succPtr);
-
   pred._succ.push_back(edge);
   succ._pred.push_back(edge);
-  // std::cout << "(" << pred._pred.size() << ", " << succ._succ.size() << ")\n";
   return true;
 }
 
@@ -131,13 +131,21 @@ void Permutahedron::display() const {
   //   cout << "\n";
   // }
 
-  // std::cout << "\n";
-  // for (size_t i = 0; i < _levels.size(); ++i) {
-  //   const auto& level = _levels[i];
-  //   std::cout << i << "\t";
-  //   for (size_t j = 0; j < level.size()-1; ++j) {
-  //     std::cout << level[j].getArrangement().getString() << ", ";
-  //   }
-  //   std::cout << level.back().getArrangement().getString() << "\n";
-  // }
+  std::cout << "\n";
+  for (size_t i = 0; i < _levels.size(); ++i) {
+    const auto& level = _levels[i];
+    std::cout << i << "\t";
+    for (size_t j = 0; j < level.size()-1; ++j) {
+      std::cout << level[j].getArrangement().getString() << ", ";
+    }
+    std::cout << level.back().getArrangement().getString() << "\n";
+  }
+}
+
+nodePtr Permutahedron::front() const {
+  return std::make_shared<Node>(_levels.front()[0]);
+}
+
+nodePtr Permutahedron::back() const {
+  return std::make_shared<Node>(_levels.back()[0]);
 }
