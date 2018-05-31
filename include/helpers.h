@@ -7,3 +7,4 @@
 
 // Helper functions to create standard arrangements
 bool create1DArrangement(size_t length, Arrangement* arr, std::vector<swapPtr>& swaps);
+bool create2DArrangement(size_t length, size_t width, Arrangement* arr, std::vector<swapPtr>& swaps);
