@@ -18,6 +18,10 @@ bool create1DArrangement(size_t length, Arrangement* arr, std::vector<swapPtr>& 
   return true;
 }
 
+// 0 ... width-1
+// width ... 2*width-1
+// 
+
 bool create2DArrangement(size_t length, size_t width, Arrangement* arr, std::vector<swapPtr>& swaps) {
   if (arr == nullptr) {
     return false;

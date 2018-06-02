@@ -29,6 +29,14 @@ bool Arrangement::swap(size_t i, size_t j) {
   if (i > _size || j > _size
     || _adjacency.count(i) == 0 || _adjacency.count(j) == 0
     || _adjacency[i] != j) {
+      cout << "ERROR IN SWAP\n";
+      cout << "i > _size == " << (i > _size) << "\n";
+      cout << "j > _size == " << (j > _size) << "\n";
+      cout << "(_adjacency.count(i) == 0) == " << (_adjacency.count(i) == 0) << "\n";
+      cout << "(_adjacency.count(j) == 0) == " << (_adjacency.count(j) == 0) << "\n";
+      cout << "(_adjacency[i] != j) == " << (_adjacency[i] != j) << "\n";
+      cout << "_adjacency[i] == " << _adjacency[i] << "\n";
+      cout << "_adjacency[j] == " << _adjacency[j] << "\n";
     return false;
   }
   value temp = _spaces[i];

@@ -25,14 +25,19 @@ public:
   Node();
   Node(const Arrangement& arr);
   Arrangement getArrangement() const;
+  std::unordered_set<std::string> getWords() const;
   std::vector<swapPtr> getPredecessorSwaps() const;
   std::vector<swapPtr> getSuccessorSwaps() const;
+  std::vector<edgePtr> getSuccessorEdges() const;
   std::vector<swapPtr> computeSuccessorSwaps(const std::vector<swapPtr>& swaps) const;
   friend bool connectNodes(Node& pred, Node& succ, swapPtr swap);
+  void buildNextWords();
+  bool addWord(std::string& word);
 
 // private:
   Arrangement _arr;
   std::vector<edgePtr> _pred, _succ;
+  std::unordered_set<std::string> _words;   // Todo, replace this <Word, custom_hash>
 };
 
 using level = std::vector<Node>;
@@ -44,6 +49,8 @@ public:
   void display() const;
   nodePtr front() const;
   nodePtr back() const;
+  void buildAllWords();
+  void writeGEXF(std::string filename) const;
 
 private:
   std::vector<level> _levels;
