@@ -10,8 +10,17 @@ Arrangement::Arrangement(size_t size) : _size(size) {
 
 // Declare that two spaces are adjacent
 void Arrangement::defineAdjacency(size_t a, size_t b) {
-  _adjacency[a] = b;
-  _adjacency[b] = a;
+  if (_adjacency.count(a) == 0) {
+    _adjacency[a] = {b};
+  } else {
+    _adjacency[a].push_back(b);
+  }
+
+  if (_adjacency.count(b) == 0) {
+    _adjacency[b] = {a};
+  } else {
+    _adjacency[b].push_back(a);
+  }
 }
 
 std::string Arrangement::getString(std::string delim) const {
@@ -26,17 +35,13 @@ std::string Arrangement::getString(std::string delim) const {
 }
 
 bool Arrangement::swap(size_t i, size_t j) {
-  if (i > _size || j > _size
-    || _adjacency.count(i) == 0 || _adjacency.count(j) == 0
-    || _adjacency[i] != j) {
-      cout << "ERROR IN SWAP\n";
-      cout << "i > _size == " << (i > _size) << "\n";
-      cout << "j > _size == " << (j > _size) << "\n";
-      cout << "(_adjacency.count(i) == 0) == " << (_adjacency.count(i) == 0) << "\n";
-      cout << "(_adjacency.count(j) == 0) == " << (_adjacency.count(j) == 0) << "\n";
-      cout << "(_adjacency[i] != j) == " << (_adjacency[i] != j) << "\n";
-      cout << "_adjacency[i] == " << _adjacency[i] << "\n";
-      cout << "_adjacency[j] == " << _adjacency[j] << "\n";
+  // Bounds and existence checking
+  if (i > _size || j > _size || _adjacency.count(i) == 0 || _adjacency.count(j) == 0) {
+    return false;
+  }
+  // Detailed adjancecy checking
+  if (std::find(_adjacency[i].begin(), _adjacency[i].end(), j) == _adjacency[i].end() ||
+      std::find(_adjacency[j].begin(), _adjacency[j].end(), i) == _adjacency[j].end()) {
     return false;
   }
   value temp = _spaces[i];
@@ -62,9 +67,16 @@ bool Arrangement::operator ==(const Arrangement& rhs) {
     }
   }
 
-  for (const auto & val : _adjacency) {
-    if (rhs._adjacency.count(val.first) == 0 || rhs._adjacency.at(val.first) != val.second) {
+  for (const auto & key : _adjacency) {
+    if (rhs._adjacency.count(key.first) == 0) {
       return false;
+    }
+    for (const auto & val : key.second) {
+      if (std::find(rhs._adjacency.at(key.first).begin(),
+                rhs._adjacency.at(key.first).end(), val)
+                                == rhs._adjacency.at(key.first).end()) {
+        return false;
+      }
     }
   }
 

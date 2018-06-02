@@ -129,32 +129,15 @@ void Permutahedron::buildPermutahedron(std::vector<swapPtr>& swaps, Arrangement&
         for (auto & currNode : currLevel) {
           // Not a new result?  Connect to the already existing Node
           if (newArr == currNode.getArrangement()) {
-            // cout << "old ";
-            if (!connectNodes(prevNode, currNode, swap)) {
-              cout << "Node was already found, and swap was " << swap->getName() << "\n";
-            } else {
-              cout << "Successfully connected " << prevNode.getArrangement().getString() << " to " << currNode.getArrangement().getString() << " with " << swap->getName() << "\n";
-            }
+            connectNodes(prevNode, currNode, swap);
             foundNode = true;
             break;
           }
         }
         if (!foundNode) {
           // Yes, is a new result?  Build a new Node and connect to it
-          // cout << "new ";
           Node newNode(newArr);
-          if (!connectNodes(prevNode, newNode, swap)) {
-            cout << "Node is new, and swap was " << swap->getName() << "\n";
-            cout << "prevNode.getArrangement().getString() = " << prevNode.getArrangement().getString() << "\n";
-            cout << "swap->getName() = " << swap->getName() << "\n";
-            swap->displayInfo();
-            cout << "newNode.getArrangement().getString() = " << newNode.getArrangement().getString() << "\n";
-            cout << "newArr = " << newArr.getString() << "\n";
-
-            return;
-          } else {
-            cout << "Successfully connected " << prevNode.getArrangement().getString() << " to " << newNode.getArrangement().getString() << " with " << swap->getName() << "\n";
-          }
+          connectNodes(prevNode, newNode, swap);
           currLevel.push_back(newNode); // And also add it to the Permutahedron
         }
       }

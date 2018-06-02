@@ -18,5 +18,5 @@ public:
 private:
   size_t _size;
   std::vector<value> _spaces;
-  std::unordered_map<size_t, size_t> _adjacency;
+  std::unordered_map<size_t, std::vector<size_t>> _adjacency;
 };
