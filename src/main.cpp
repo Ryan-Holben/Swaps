@@ -11,7 +11,7 @@ int main() {
 
   // Fill those containers with a 1D array to do permutations on
   // create1DArrangement(4, &start, swaps);
-  create2DArrangement(2, 2, &start, swaps);
+  create2DArrangement(3, 3, &start, swaps);
 
   for (const auto & swap : swaps) {
     swap->displayInfo();
