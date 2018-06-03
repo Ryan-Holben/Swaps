@@ -1,5 +1,5 @@
-CC=clang-3.8
-CXX=clang++-3.8
+CC=clang
+CXX=clang++
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
