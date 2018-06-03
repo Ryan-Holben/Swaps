@@ -1,0 +1,50 @@
+"a" is a swap object that acts on the positions 0 & 1.
+"b" is a swap object that acts on the positions 0 & 3.
+"c" is a swap object that acts on the positions 1 & 2.
+"d" is a swap object that acts on the positions 1 & 4.
+"e" is a swap object that acts on the positions 3 & 4.
+"f" is a swap object that acts on the positions 3 & 6.
+"g" is a swap object that acts on the positions 4 & 5.
+"h" is a swap object that acts on the positions 4 & 7.
+"i" is a swap object that acts on the positions 2 & 5.
+"j" is a swap object that acts on the positions 5 & 8.
+"k" is a swap object that acts on the positions 6 & 7.
+"l" is a swap object that acts on the positions 7 & 8.
+Building permutahedron
+Seeding level 0
+Building level 1
+Building level 2
+Building level 3
+Building level 4
+Building level 5
+Building level 6
+Building level 7
+Building level 8
+Building level 9
+Building level 10
+Building level 11
+Building level 12
+Building level 13
+Building level 14
+Building level 15
+Building level 16
+_levels.size() = 17
+_levels[0].size() = 1
+_levels[1].size() = 12
+_levels[2].size() = 88
+_levels[3].size() = 470
+_levels[4].size() = 1978
+_levels[5].size() = 6658
+_levels[6].size() = 18081
+_levels[7].size() = 38936
+_levels[8].size() = 65246
+_levels[9].size() = 83000
+_levels[10].size() = 76688
+_levels[11].size() = 48316
+_levels[12].size() = 18975
+_levels[13].size() = 4024
+_levels[14].size() = 382
+_levels[15].size() = 24
+_levels[16].size() = 1
+
+[1, 12, 88, 470, 1978, 6658, 18081, 38936, 65246, 83000, 76688, 48316, 18975, 4024, 382, 24, 1]
