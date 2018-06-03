@@ -1,10 +1,8 @@
-CC=clang
 CXX=clang++
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Linux)
-	CC += -3.8
-	CXX += -3.8
+	CXX:=$(CXX)-3.8
 endif
 
 INCDIR=include
