@@ -1,5 +1,11 @@
-CC=clang
-CXX=clang++
+CC=clang-3.8
+CXX=clang++-3.8
+
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+	CC += -3.8
+	CXX += -3.8
+endif
 
 INCDIR=include
 SRCDIR=src
@@ -18,7 +24,7 @@ OBJECTS=$(patsubst %.o,$(OBJDIR)/%.o,\
 all: $(BINARY)
 
 # Reassign OBJECTS to include the object path
-CXXFLAGS+=-I$(INCDIR) -Wall -g -O3 --std=c++14
+CXXFLAGS+=-I$(INCDIR) -Wall -g -O3 --std=c++14 --stdlib=libc++
 
 $(BINARY) : $(OBJECTS)
 	@mkdir -p $(BINDIR)
@@ -27,9 +33,6 @@ $(BINARY) : $(OBJECTS)
 $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 	@mkdir -p $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -o $@ -c $<
-
-writeline:
-	echo "########################################################"
 
 clean:
 	rm -f $(BINDIR)/* $(OBJDIR)/*
