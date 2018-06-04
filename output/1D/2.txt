@@ -1,0 +1,8 @@
+Initializing data structures for 1x2 arrangement.
+"a" is a swap object that acts on the positions 0 & 1.
+Building permutahedron
+Seeding level 0
+Building level 1
+_levels.size() = 2
+_levels[0].size() = 1
+_levels[1].size() = 1
