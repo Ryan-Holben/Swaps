@@ -163,15 +163,15 @@ void Permutahedron::display() const {
   //   cout << "\n";
   // }
 
-  std::cout << "\n";
-  for (size_t i = 0; i < _levels.size(); ++i) {
-    const auto& level = _levels[i];
-    std::cout << i << "\t";
-    for (size_t j = 0; j < level.size()-1; ++j) {
-      std::cout << level[j].getArrangement().getString() << ", ";
-    }
-    std::cout << level.back().getArrangement().getString() << "\n";
-  }
+  // std::cout << "\n";
+  // for (size_t i = 0; i < _levels.size(); ++i) {
+  //   const auto& level = _levels[i];
+  //   std::cout << i << "\t";
+  //   for (size_t j = 0; j < level.size()-1; ++j) {
+  //     std::cout << level[j].getArrangement().getString() << ", ";
+  //   }
+  //   std::cout << level.back().getArrangement().getString() << "\n";
+  // }
 
   // for (const auto& level : _levels) {
   //   cout << "--Level--\n";

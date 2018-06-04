@@ -6,6 +6,8 @@ bool create1DArrangement(size_t length, Arrangement* arr, std::vector<swapPtr>& 
     return false;
   }
 
+  cout << "Initializing data structures for 1x" << length << " arrangement.\n";
+
   *arr = Arrangement(length); // This is surely inefficient
   std::string strName;
   char name = 'a';
@@ -27,6 +29,9 @@ bool create2DArrangement(size_t width, size_t height, Arrangement* arr, std::vec
   if (arr == nullptr) {
     return false;
   }
+
+  cout << "Initializing data structures for " << width << "x" << height << " arrangement.\n";
+
   const size_t totalLength = width * height;
   *arr = Arrangement(totalLength); // This is surely inefficient
 
