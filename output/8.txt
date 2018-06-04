@@ -1,0 +1,68 @@
+Initializing data structures for 1x8 arrangement.
+"a" is a swap object that acts on the positions 0 & 1.
+"b" is a swap object that acts on the positions 1 & 2.
+"c" is a swap object that acts on the positions 2 & 3.
+"d" is a swap object that acts on the positions 3 & 4.
+"e" is a swap object that acts on the positions 4 & 5.
+"f" is a swap object that acts on the positions 5 & 6.
+"g" is a swap object that acts on the positions 6 & 7.
+Building permutahedron
+Seeding level 0
+Building level 1
+Building level 2
+Building level 3
+Building level 4
+Building level 5
+Building level 6
+Building level 7
+Building level 8
+Building level 9
+Building level 10
+Building level 11
+Building level 12
+Building level 13
+Building level 14
+Building level 15
+Building level 16
+Building level 17
+Building level 18
+Building level 19
+Building level 20
+Building level 21
+Building level 22
+Building level 23
+Building level 24
+Building level 25
+Building level 26
+Building level 27
+Building level 28
+_levels.size() = 29
+_levels[0].size() = 1
+_levels[1].size() = 7
+_levels[2].size() = 27
+_levels[3].size() = 76
+_levels[4].size() = 174
+_levels[5].size() = 343
+_levels[6].size() = 602
+_levels[7].size() = 961
+_levels[8].size() = 1415
+_levels[9].size() = 1940
+_levels[10].size() = 2493
+_levels[11].size() = 3017
+_levels[12].size() = 3450
+_levels[13].size() = 3736
+_levels[14].size() = 3836
+_levels[15].size() = 3736
+_levels[16].size() = 3450
+_levels[17].size() = 3017
+_levels[18].size() = 2493
+_levels[19].size() = 1940
+_levels[20].size() = 1415
+_levels[21].size() = 961
+_levels[22].size() = 602
+_levels[23].size() = 343
+_levels[24].size() = 174
+_levels[25].size() = 76
+_levels[26].size() = 27
+_levels[27].size() = 7
+_levels[28].size() = 1

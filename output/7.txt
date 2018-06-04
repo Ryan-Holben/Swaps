@@ -1,0 +1,53 @@
+Initializing data structures for 1x7 arrangement.
+"a" is a swap object that acts on the positions 0 & 1.
+"b" is a swap object that acts on the positions 1 & 2.
+"c" is a swap object that acts on the positions 2 & 3.
+"d" is a swap object that acts on the positions 3 & 4.
+"e" is a swap object that acts on the positions 4 & 5.
+"f" is a swap object that acts on the positions 5 & 6.
+Building permutahedron
+Seeding level 0
+Building level 1
+Building level 2
+Building level 3
+Building level 4
+Building level 5
+Building level 6
+Building level 7
+Building level 8
+Building level 9
+Building level 10
+Building level 11
+Building level 12
+Building level 13
+Building level 14
+Building level 15
+Building level 16
+Building level 17
+Building level 18
+Building level 19
+Building level 20
+Building level 21
+_levels.size() = 22
+_levels[0].size() = 1
+_levels[1].size() = 6
+_levels[2].size() = 20
+_levels[3].size() = 49
+_levels[4].size() = 98
+_levels[5].size() = 169
+_levels[6].size() = 259
+_levels[7].size() = 359
+_levels[8].size() = 455
+_levels[9].size() = 531
+_levels[10].size() = 573
+_levels[11].size() = 573
+_levels[12].size() = 531
+_levels[13].size() = 455
+_levels[14].size() = 359
+_levels[15].size() = 259
+_levels[16].size() = 169
+_levels[17].size() = 98
+_levels[18].size() = 49
+_levels[19].size() = 20
+_levels[20].size() = 6
+_levels[21].size() = 1
